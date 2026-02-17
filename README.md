@@ -1,13 +1,16 @@
+"""
 # Piano-Tiles-PY
+# Architecture: Layered (N-Tier)
 
+Project Structure:
+------------------
 piano_tiles_project/
-├── assets/                  # Managed by PM (Sounds, Fonts, Images)
+├── assets/                  # PM (Isaac V): Sounds, Fonts, Images
 │   ├── sounds/
 │   └── fonts/
 ├── src/
-│   ├── __init__.py
-│   ├── main.py              # Entry point (Managed by PM) (Isaac V)
-│   ├── infrastructure/      # PM: Config, Constants, Asset Loader
+│   ├── main.py              # Entry point (Isaac V)
+│   ├── infrastructure/      # PM (Isaac V): Config, Constants, Asset Loader
 │   │   ├── settings.py
 │   │   └── asset_manager.py
 │   ├── presentation/        # Dev A (Erick C): PyGame Drawing, UI, Screens
@@ -20,3 +23,4 @@ piano_tiles_project/
 │       └── event_handler.py
 ├── tests/                   # Dev D (Jorge V): Unit tests for each layer
 └── requirements.txt
+"""
