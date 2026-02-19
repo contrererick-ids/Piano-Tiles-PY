@@ -60,3 +60,50 @@ class Renderer:
     def draw_score(self, score: int) -> None:
         # Llamada a la funcion draw_text pero este simplemente es el contador del puntaje presentado en pantalla
         self.draw_text(f"Score: {score}", (10, 10), color=COLOR_BLACK)
+
+    def draw_chinese_text(self, text: str, position: tuple, color: tuple = COLOR_BLACK) -> None:
+        # Fallback list for Chinese fonts on different OS
+        chinese_fonts = ["PingFang SC", "Heiti SC", "Microsoft YaHei", "SimHei", "Noto Sans CJK SC", "Arial Unicode MS"]
+        
+        selected_font = None
+        for font_name in chinese_fonts:
+            try:
+                # Check if system has this font
+                if font_name in pygame.font.get_fonts() or pygame.font.match_font(font_name):
+                    selected_font = pygame.font.SysFont(font_name, 40)
+                    break
+            except:
+                continue
+                
+        # If no specific font found, try default generic match
+        if not selected_font:
+             path = pygame.font.match_font('arial') # Ultimate fallback, likely just squares for chinese but safe
+             selected_font = pygame.font.Font(path, 40)
+
+        # Force valid font for unicode
+        # Note: Pygame SysFont might not raise error but return default if not found. 
+        # Let's trust 'PingFang SC' works on Mac as requested, but if User says "looks same", maybe it's not rendering.
+        
+        # Explicit attempt for Mac
+        try:
+             # Just instantiate what worked before but ensure it renders
+             font = pygame.font.SysFont("PingFang SC", 40)
+             surface = font.render(text, True, color)
+             
+             # If width is 0 or very small, it might have failed to render char
+             if surface.get_width() == 0:
+                 raise Exception("Font render empty")
+        except:
+             # Fallback to a known widely available default that usually covers unicode
+             font = pygame.font.SysFont("Arial Unicode MS", 40)
+             surface = font.render(text, True, color)
+
+        rect = surface.get_rect(center=position)
+        self.screen.blit(surface, rect)
+
+    def draw_lantern(self, x, y):
+        # Draw a simple red lantern with gold outline
+        pygame.draw.circle(self.screen, (220, 20, 60), (x, y), 30) # Crimson Body
+        pygame.draw.circle(self.screen, (255, 215, 0), (x, y), 30, 3) # Gold outline
+        pygame.draw.line(self.screen, (255, 215, 0), (x, y-30), (x, y-50), 2) # String
+        pygame.draw.line(self.screen, (255, 215, 0), (x, y+30), (x, y+50), 2) # Tassel

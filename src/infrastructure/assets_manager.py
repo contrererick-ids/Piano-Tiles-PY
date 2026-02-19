@@ -23,15 +23,19 @@ class AssetManager:
         # 1. Load Sounds
         # Usage: assets.sounds['tap'].play()
         self._load_sound("tap", "sounds/tap.wav")
-        self._load_sound("game_over", "sounds/game_over.wav")
+        self._load_sound("game_over", "sounds/gameover.wav")
         
         # Load Music
         self.music_path = os.path.join(self.base_path, "sounds/song.mp3")
 
         # 2. Load Fonts
         # Usage: assets.fonts['score'].render("100", True, (0,0,0))
+        # 2. Load Fonts
+        # Usage: assets.fonts['score'].render("100", True, (0,0,0))
         self.fonts["score"] = pygame.font.SysFont("Arial", 32, bold=True)
-        self.fonts["title"] = pygame.font.SysFont("Arial", 64, bold=True)
+        self.fonts["title"] = pygame.font.SysFont("Arial", 50, bold=True)
+        # MacOS usually has PingFang SC. Fallback to common ones if needed.
+        self.fonts["chinese"] = pygame.font.SysFont("PingFang SC", 40)
 
     def _load_sound(self, key, relative_path):
         full_path = os.path.join(self.base_path, relative_path)

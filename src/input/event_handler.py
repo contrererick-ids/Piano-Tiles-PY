@@ -1,4 +1,5 @@
 import pygame
+from typing import Optional
 
 class EventHandler:
     def get_events(self):
@@ -7,7 +8,7 @@ class EventHandler:
     def is_quit(self, event) -> bool:
         return event.type == pygame.QUIT
 
-    def get_click_pos(self, event) -> tuple | None:
+    def get_click_pos(self, event) -> Optional[tuple]:
         if event.type == pygame.MOUSEBUTTONDOWN:
             return event.pos # retorna el (x, y) del click
         return None
