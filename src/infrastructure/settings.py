@@ -6,8 +6,8 @@ HEIGHT = 600
 FPS = 60
 
 # Colors
-COLOR_WHITE = (255, 255, 255)
-COLOR_BLACK = (0, 0, 0)
+COLOR_WHITE = (210, 4, 45)  # Red (Background)
+COLOR_BLACK = (255, 215, 0) # Gold (Tiles)
 COLOR_GRAY = (200, 200, 200)
 COLOR_RED = (255, 0, 0)
 

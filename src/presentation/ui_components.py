@@ -1,4 +1,5 @@
 import pygame
+from typing import Optional
 from src.infrastructure.settings import WIDTH, HEIGHT, COLOR_BLACK, COLOR_WHITE, COLOR_RED
 from src.presentation.renderer import Renderer
 
@@ -32,7 +33,7 @@ class MenuScreen:
         self.renderer.draw_button(self._BTN_START, "Start")
 
     # Funcion que determina si el boton fue seleccionado para iniciar el juego
-    def handle_click(self, pos: tuple) -> str | None:
+    def handle_click(self, pos: tuple) -> Optional[str]:
         if self._BTN_START.collidepoint(pos):
             return "start"
         return None
@@ -42,18 +43,18 @@ class MenuScreen:
 class GameScreen:
 
     # Instancia de Renderer para la pantalla del juego en ejecucion
-    def __init__(self, renderer: Renderer, controller):
+    def __init__(self, renderer: Renderer, engine):
         self.renderer = renderer
-        self.controller = controller
+        self.engine = engine
 
     # Funcion para renderizar la pantalla del juego en ejecucion
     def render(self) -> None:
         # Dibuja el background
         self.renderer.draw_background()
         # Dibuja las "tiles"
-        self.renderer.draw_tiles(self.controller.board.tiles)
+        self.renderer.draw_tiles(self.engine.get_tiles())
         # Dibuja el score actual
-        self.renderer.draw_score(self.controller.score.get_score())
+        self.renderer.draw_score(self.engine.get_score())
 
 
 # GameOverScreen
@@ -90,7 +91,7 @@ class GameOverScreen:
         self.renderer.draw_button(self._BTN_EXIT, "Exit", bg_color=COLOR_RED)
 
     # Funcion que determina si se reinicia el juego o se sale de la aplicacion
-    def handle_click(self, pos: tuple) -> str | None:
+    def handle_click(self, pos: tuple) -> Optional[str]:
         # Checa el boton de "Reinicio"
         if self._BTN_RESTART.collidepoint(pos):
             return "restart"

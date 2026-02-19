@@ -11,9 +11,9 @@ class AssetManager:
         self.images = {}
 
         # Determine the base path for the assets folder
-        # This points to the /assets folder at the root of your project
+        # This points to the /src/assets folder
         self.base_path = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "../../assets")
+            os.path.join(os.path.dirname(__file__), "../assets")
         )
 
     def load_assets(self):
@@ -24,6 +24,9 @@ class AssetManager:
         # Usage: assets.sounds['tap'].play()
         self._load_sound("tap", "sounds/tap.wav")
         self._load_sound("game_over", "sounds/game_over.wav")
+        
+        # Load Music
+        self.music_path = os.path.join(self.base_path, "sounds/song.mp3")
 
         # 2. Load Fonts
         # Usage: assets.fonts['score'].render("100", True, (0,0,0))
@@ -41,3 +44,10 @@ class AssetManager:
         """Helper to play a sound by its key name."""
         if key in self.sounds:
             self.sounds[key].play()
+
+    def play_music(self):
+        if os.path.exists(self.music_path):
+            pygame.mixer.music.load(self.music_path)
+            pygame.mixer.music.play(-1) # Loop indefinitely
+        else:
+            print(f"Warning: Music file not found at {self.music_path}")
