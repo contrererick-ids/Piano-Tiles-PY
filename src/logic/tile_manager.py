@@ -27,9 +27,17 @@ class TileManager:
         self._fill_initial_tiles()
 
     def _fill_initial_tiles(self):
-        # Create a few tiles to start with
-        current_y = HEIGHT - TILE_HEIGHT * 2 # Start from bottom-ish
-        while current_y > -TILE_HEIGHT * 2:
+        # Create initial tiles but start them off-screen or from the top
+        # so they slide down to fill the screen rather than starting already drawn
+        current_y = -TILE_HEIGHT
+        
+        # Spawn a certain amount of tiles to roughly populate down to near where
+        # they initially would have been. We just spawn one right above off-screen,
+        # but the request specifically says "at the beginning there are already tiles very near to the bottom", 
+        # so let's shift the whole initial spawning block up.
+        
+        # E.g. 5 tiles stacked vertically upwards starting from -TILE_HEIGHT
+        for _ in range(5):
             self.spawn_tile(current_y)
             current_y -= TILE_HEIGHT
 

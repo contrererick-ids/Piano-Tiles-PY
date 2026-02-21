@@ -31,3 +31,15 @@ piano_tiles_project/
 │       └── event_handler.py
 ├── tests/                   # Dev D (Jorge V): Unit tests for each layer
 └── requirements.txt
+
+## How to Run
+
+1. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Run the game:
+   ```bash
+   python src/main.py
+   ```

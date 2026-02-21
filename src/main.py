@@ -60,6 +60,7 @@ def main():
                     if action == "start":
                         engine = GameEngine() # Reset engine
                         game_screen = GameScreen(renderer, engine)
+                        assets.unpause_music()
                         current_state = "game"
 
                 elif current_state == "game":
@@ -68,6 +69,7 @@ def main():
                         assets.play_sound("tap")
                     elif result == "miss":
                         assets.play_sound("game_over")
+                        assets.pause_music()
                         final_score = engine.get_score()
                         current_state = "game_over"
 
@@ -76,6 +78,7 @@ def main():
                     if action == "restart":
                         engine = GameEngine() # Reset engine
                         game_screen = GameScreen(renderer, engine)
+                        assets.unpause_music()
                         current_state = "game"
                     elif action == "exit":
                         running = False
@@ -86,6 +89,7 @@ def main():
             if engine.game_over:
                 if current_state != "game_over": # Prevent double trigger if clicked miss already handled
                     assets.play_sound("game_over")
+                    assets.pause_music()
                     final_score = engine.get_score()
                     current_state = "game_over"
 

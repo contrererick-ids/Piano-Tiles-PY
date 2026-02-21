@@ -1,5 +1,6 @@
-import pygame
 from typing import Optional
+import os
+import pygame
 from src.infrastructure.settings import WIDTH, HEIGHT, COLOR_BLACK, COLOR_WHITE, COLOR_RED
 from src.presentation.renderer import Renderer
 
@@ -23,13 +24,6 @@ class MenuScreen:
     def render(self) -> None:
         # Dibuja el fondo de la pantalla Menu
         self.renderer.draw_background()
-        
-        # Draw Lanterns
-        self.renderer.draw_lantern(60, 100)
-        self.renderer.draw_lantern(WIDTH - 60, 100)
-
-        # Draw Chinese Greeting
-        self.renderer.draw_chinese_text("新年快乐", (WIDTH // 2, HEIGHT // 6), color=(255, 215, 0)) # Happy New Year in Gold
 
         # Dibuja el texto (un rect) que muestra el titulo
         self.renderer.draw_text(
@@ -80,9 +74,6 @@ class GameOverScreen:
     def render(self, score: int) -> None:
         # Dibuja el background
         self.renderer.draw_background()
-        
-        # Chinese Blessing
-        self.renderer.draw_chinese_text("福", (WIDTH // 2, HEIGHT // 6), color=(255, 215, 0))
 
         # Dibuja el titulo
         self.renderer.draw_text(
@@ -98,6 +89,7 @@ class GameOverScreen:
             color=COLOR_BLACK,
             center=True,
         )
+
         # Dibuja los botones para reiniciar o salir
         self.renderer.draw_button(self._BTN_RESTART, "Restart")
         self.renderer.draw_button(self._BTN_EXIT, "Exit", bg_color=COLOR_RED)

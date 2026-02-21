@@ -22,7 +22,7 @@ class AssetManager:
 
         # 1. Load Sounds
         # Usage: assets.sounds['tap'].play()
-        self._load_sound("tap", "sounds/tap.wav")
+        self._load_sound("tap", "sounds/tap.mp3")
         self._load_sound("game_over", "sounds/gameover.wav")
         
         # Load Music
@@ -47,7 +47,10 @@ class AssetManager:
     def play_sound(self, key):
         """Helper to play a sound by its key name."""
         if key in self.sounds:
-            self.sounds[key].play()
+            if key == "tap":
+                self.sounds[key].play(maxtime=500)
+            else:
+                self.sounds[key].play()
 
     def play_music(self):
         if os.path.exists(self.music_path):
@@ -55,3 +58,9 @@ class AssetManager:
             pygame.mixer.music.play(-1) # Loop indefinitely
         else:
             print(f"Warning: Music file not found at {self.music_path}")
+
+    def pause_music(self):
+        pygame.mixer.music.pause()
+
+    def unpause_music(self):
+        pygame.mixer.music.unpause()
