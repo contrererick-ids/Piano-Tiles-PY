@@ -25,7 +25,7 @@ class GameEngine:
             if self.score % 10 == 0:
                 self.tile_manager.increase_speed()
             return "hit"
-        
+
         elif result == "miss":
             self.game_over = True
             return "miss"
